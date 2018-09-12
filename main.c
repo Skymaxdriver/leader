@@ -27,19 +27,18 @@
  * |____________|___________|
  */
 
-
-
-
-
-
 #define headlights PB5
 #define lcdbacklight PB6
 #define statuspwm PB7
+#define _NIBO_2_
 
 #define F_CPU 16000000				// 16MHz
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "ks0108lib/KS0108.h"
+#include "ks0108lib/graphic.h"
+#include "ks0108lib/KS0108-AVR.c"
 
 void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwendet werden
 {
@@ -50,18 +49,12 @@ void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwe
 	DDRB|= (1<<PB5);		//headlights
 }
 
-void cntrlled(int led,bool value)
-{
-
-
-}
-
 
 
 void init() // allgemeine initialisierung der funktionen
 {
 	initlight();
-	
+
 }
 
 int main(void)
@@ -69,8 +62,10 @@ int main(void)
 	init();
 	PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
 	PORTC = 0xFF;
-	
-	
+	GLCD_Initialize();
+	GLCD_ClearScreen();
+	GLCD_GoTo(0,0);
+	GLCD_WriteString("+-------------------+");
 	while (1)
 	{
 	}

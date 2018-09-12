@@ -84,8 +84,22 @@
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>libm</Value>
+      <Value>font5x8.h</Value>
+      <Value>graphic.c</Value>
+      <Value>graphic.h</Value>
+      <Value>KS0108.c</Value>
+      <Value>KS0108.h</Value>
+      <Value>KS0108-8051.c</Value>
+      <Value>KS0108-AT91.c</Value>
+      <Value>KS0108-AVR.c</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>C:\Users\skymax\Downloads\ks0108lib</Value>
+      <Value>C:\Users\skymax\Documents\Atmel Studio\7.0\nibo2onceagain\nibo2onceagain\ks0108lib</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.209\include</Value>
@@ -127,20 +141,21 @@
   <avrgcc.linker.general.UseVprintfLibrary>True</avrgcc.linker.general.UseVprintfLibrary>
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
-      <Value>libm</Value>
-      <Value>libmthread</Value>
-      <Value>libnibo2_base</Value>
-      <Value>libnibo2_class</Value>
-      <Value>libnibo2_nds3</Value>
-      <Value>libnibo2_uart-0</Value>
-      <Value>libnibo2_uart-1</Value>
-      <Value>libnibo2_xbee-0</Value>
-      <Value>libnibo2_xbee-1</Value>
+      <Value>font5x8.h</Value>
+      <Value>graphic.c</Value>
+      <Value>graphic.h</Value>
+      <Value>KS0108.c</Value>
+      <Value>KS0108.h</Value>
+      <Value>KS0108-8051.c</Value>
+      <Value>KS0108-AT91.c</Value>
+      <Value>KS0108-AVR.c</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
   <avrgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
       <Value>C:\Program Files\NiboRoboLib\lib\nibo2-m128-16</Value>
+      <Value>C:\Users\skymax\Downloads\ks0108lib</Value>
+      <Value>C:\Users\skymax\Documents\Atmel Studio\7.0\nibo2onceagain\nibo2onceagain\ks0108lib</Value>
     </ListValues>
   </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
