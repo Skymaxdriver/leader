@@ -36,11 +36,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-
+//Display libs
 #include <stdint.h>
 #include <avr/pgmspace.h>
 #include <nibo/display.h>
 #include <nibo/gfx.h>
+//Moitorsteuerung
+#include <nibo/copro.h>
+#include <nibo/bot.h>
 
 
 void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwendet werden
@@ -57,16 +60,17 @@ void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwe
 void init() // allgemeine initialisierung der funktionen
 {
 	initlight();
-
+	display_init(3);
+	gfx_init(); 
+	bot_init();
 }
 
 int main(void)
 {
+	 char text[20];
 	init();
-	PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
-	PORTC = 0xFF;
-	display_init(3);
-	gfx_init(); 
+	//PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
+	//PORTC = 0xFF;
 	gfx_set_proportional(1);
 	gfx_move(0,00);
 	gfx_print_text 	("Hallo ibims eins ");
@@ -74,8 +78,17 @@ int main(void)
 	gfx_print_text 	("Nibo2");
 	gfx_move(0,55);
 	gfx_print_text 	("/§&e324/&TRGHSAdhgfz TEST aswifu");
+	
+	
+	 sei(); // enable interrupts
+  bot_init();
+  spi_init();
+	  //copro_setSpeedParameters(5, 6, 7);
+	  copro_setSpeed(-40,-70);
+	  //copro_setPWM(1000,0);
 	while (1)
 	{
+		
 	}
 }
 

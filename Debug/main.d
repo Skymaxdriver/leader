@@ -17,7 +17,9 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  C:\Program\ Files\NiboRoboLib\src/nibo/display.h \
- C:\Program\ Files\NiboRoboLib\src/nibo/gfx.h
+ C:\Program\ Files\NiboRoboLib\src/nibo/gfx.h \
+ C:\Program\ Files\NiboRoboLib\src/nibo/copro.h \
+ C:\Program\ Files\NiboRoboLib\src/nibo/bot.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -56,3 +58,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 C:\Program\ Files\NiboRoboLib\src/nibo/display.h:
 
 C:\Program\ Files\NiboRoboLib\src/nibo/gfx.h:
+
+C:\Program\ Files\NiboRoboLib\src/nibo/copro.h:
+
+C:\Program\ Files\NiboRoboLib\src/nibo/bot.h:
