@@ -36,9 +36,12 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "ks0108lib/KS0108.h"
-#include "ks0108lib/graphic.h"
-#include "ks0108lib/KS0108-AVR.c"
+
+#include <stdint.h>
+#include <avr/pgmspace.h>
+#include <nibo/display.h>
+#include <nibo/gfx.h>
+
 
 void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwendet werden
 {
@@ -62,13 +65,20 @@ int main(void)
 	init();
 	PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
 	PORTC = 0xFF;
-	GLCD_Initialize();
-	GLCD_ClearScreen();
-	GLCD_GoTo(0,0);
-	GLCD_WriteString("+-------------------+");
+	display_init(3);
+	gfx_init(); 
+	gfx_set_proportional(1);
+	gfx_move(0,00);
+	gfx_print_text 	("Hallo ibims eins ");
+	gfx_move(50,20);
+	gfx_print_text 	("Nibo2");
+	gfx_move(0,55);
+	gfx_print_text 	("/§&e324/&TRGHSAdhgfz TEST aswifu");
 	while (1)
 	{
 	}
 }
+
+
 
 
