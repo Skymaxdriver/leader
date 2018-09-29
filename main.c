@@ -38,12 +38,21 @@
 #include <util/delay.h>
 //Display libs
 #include <stdint.h>
+#include <stdlib.h>
 #include <avr/pgmspace.h>
 #include <nibo/display.h>
 #include <nibo/gfx.h>
-//Moitorsteuerung
+//Motorsteuerung
 #include <nibo/copro.h>
 #include <nibo/bot.h>
+//Abstandssensoren
+//#include <nibo/nds3.h>	// Aufsteckmodul
+extern uint16_t copro_distance[5]; //!! Globale variable aus der copro.h datei merkwürdiges verhalten, daher wiederholte initialisierung benötigt für die infrarot entfernungssensoren
+#define lloff
+#define rroff
+#define loff +4
+#define roff -5
+int engineR, engineL;
 
 
 void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwendet werden
@@ -63,35 +72,84 @@ void init() // allgemeine initialisierung der funktionen
 	display_init(3);
 	gfx_init(); 
 	bot_init();
+	sei(); // enable interrupts
+	bot_init();
+	spi_init();
+}
+
+
+void distsens()
+{
+	copro_ir_startMeasure(); // Distanzsensoren starten
+	char text[20]="-- -- -- -- --";
+	if (copro_update()) // Co-Prozessor
+	{
+		sprintf(text, "%02x %02x %02x %02x %02x",
+		(uint16_t)copro_distance[0]/256,
+		(uint16_t)copro_distance[1]/256,
+		(uint16_t)copro_distance[2]/256,
+		(uint16_t)copro_distance[3]/256,
+		(uint16_t)copro_distance[4]/256);
+	}
+	gfx_move(10,44);
+	gfx_print_text 	("Entfernungssensoren: ");
+	gfx_move(10, 55);
+	gfx_print_text(text);
+	int f = (uint16_t)copro_distance[2]/256;
+	int ll = (uint16_t)copro_distance[3]/256;
+	int rr = (uint16_t)copro_distance[1]/256;
+	// Abstandsensoren Auslesen
+	if (f+roff < 20 && engineR <1024 && engineL < 1024)
+	{
+		engineR = 30;
+		engineL = 30;
+	}
+	if (f+roff > 25 )
+	{
+		engineR = -20;
+		engineL = -20;
+	}
+	if (rr < 20 && f+roff < 20&&  engineR <1024 && engineL < 1024)
+	{
+		engineL = 30;
+	}
+	if (rr > 25 && f+roff < 20&&  engineR <1024 && engineL < 1024)
+	{
+		engineL = 10;
+	}
+	if (ll < 10 && f+roff < 20&& engineR <1024 && engineL < 1024)
+	{
+		engineR = 30;
+	}
+	if (ll > 15 && f+roff < 20&& engineR <1024 && engineL < 1024)
+	{
+		engineR = 10;
+	}
+	//Finaly set engine speed;
+	copro_setSpeed(engineL, engineR);
+	gfx_move(10,0);
+	gfx_print_text 	("Engine_speed: ");
+	gfx_move(10, 10);
+	sprintf(text,"%02d %02d",engineL,engineR);
+	gfx_print_text(text);
+	delay(100);
 }
 
 int main(void)
 {
-	 char text[20];
+	
+	char text[20];
 	init();
+	int i = 22;
+	char buffer[20];
 	//PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
 	//PORTC = 0xFF;
 	gfx_set_proportional(1);
-	gfx_move(0,00);
-	gfx_print_text 	("Hallo ibims eins ");
-	gfx_move(50,20);
-	gfx_print_text 	("Nibo2");
-	gfx_move(0,55);
-	gfx_print_text 	("/§&e324/&TRGHSAdhgfz TEST aswifu");
-	
-	
-	 sei(); // enable interrupts
-  bot_init();
-  spi_init();
-	  //copro_setSpeedParameters(5, 6, 7);
-	  copro_setSpeed(-40,-70);
-	  //copro_setPWM(1000,0);
 	while (1)
 	{
 		
+		distsens();
 	}
 }
-
-
 
 
