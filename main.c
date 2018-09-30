@@ -6,7 +6,7 @@
  * __________________________
  * |   Port		|	LED		|	Displaybeleuchtung: PB6
  * |____________|___________|	Scheinwerfer:		PB5
- * |Grün: 0		|	PC0		|	Status Pwm:			PB7
+ * |GrÃ¼n: 0		|	PC0		|	Status Pwm:			PB7
  * |	1		|	PC1		|
  * |	2		|	PC2		|
  * |	3		|	PC3		|
@@ -47,7 +47,7 @@
 #include <nibo/bot.h>
 //Abstandssensoren
 //#include <nibo/nds3.h>	// Aufsteckmodul
-extern uint16_t copro_distance[5]; //!! Globale variable aus der copro.h datei merkwürdiges verhalten, daher wiederholte initialisierung benötigt für die infrarot entfernungssensoren
+extern uint16_t copro_distance[5]; //!! Globale variable aus der copro.h datei merkwÃ¼rdiges verhalten, daher wiederholte initialisierung benÃ¶tigt fÃ¼r die infrarot entfernungssensoren
 #define lloff
 #define rroff
 #define loff +4
@@ -55,9 +55,9 @@ extern uint16_t copro_distance[5]; //!! Globale variable aus der copro.h datei m
 int engineR, engineL;
 
 
-void initlight() // initialisiert die Ports & Pins die für die Beleuchtung verwendet werden
+void initlight() // initialisiert die Ports & Pins die fÃ¼r die Beleuchtung verwendet werden
 {
-	DDRC=0xFF;				// grüne status Leds
+	DDRC=0xFF;				// grÃ¼ne status Leds
 	DDRE=0xFF;				// rote status Leds
 	DDRB|= (1<<PB7);		// status leds
 	DDRB|= (1<<PB6);		// lcd Beleuchtung
@@ -71,6 +71,7 @@ void init() // allgemeine initialisierung der funktionen
 	initlight();
 	display_init(3);
 	gfx_init(); 
+	gfx_set_proportional(1);
 	bot_init();
 	sei(); // enable interrupts
 	bot_init();
@@ -137,17 +138,11 @@ void distsens()
 
 int main(void)
 {
-	
-	char text[20];
 	init();
-	int i = 22;
-	char buffer[20];
 	//PORTB |= ((1<<PB7)|(1<<PB6)|(1<<PB5));
 	//PORTC = 0xFF;
-	gfx_set_proportional(1);
 	while (1)
 	{
-		
 		distsens();
 	}
 }
